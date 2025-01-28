@@ -1,8 +1,8 @@
+// setting up a module
+import {cart  } from '../data/cart.js';
 
 
-//variable for combining all the strings together to put on the webpage
-
-let productsHTML = '';
+let productsHTML = ''; 
 
 products.forEach( (product) => {
    productsHTML += `
