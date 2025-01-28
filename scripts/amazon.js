@@ -1,6 +1,7 @@
 // setting up a module
-import {cart} from '../data/cart.js';
+import {cart, addToCart} from '../data/cart.js';
 import {products} from '../data/products.js'
+
 
 
 let productsHTML = ''; 
@@ -13,7 +14,7 @@ products.forEach( (product) => {
               src="${product.image}">
           </div>
 
-          <div class="product-name limit-text-to-2-lines">
+          <div class="product-name limit-text-to-2-lines"> 
             ${product.name}
           </div>
 
@@ -63,40 +64,27 @@ products.forEach( (product) => {
 document.querySelector('.js-products-grid')
 .innerHTML = productsHTML;
 
+
 //how to add a product to a cart
+
+function updateCartQuantity() {
+  let cartQuantity = 0;
+
+    cart.forEach((cartItem) => {
+      cartQuantity += cartItem.quantity;
+    });
+
+    document.querySelector('.js-cart-quantity')
+    .innerHTML = cartQuantity;
+}
 
 document.querySelectorAll('.js-add-to-cart')
 .forEach((button) => {
   button.addEventListener('click', () => {
     const productId = button.dataset.
     productId;
-
-    //figuring out if the product is in the cart
-    let matchingItem;
-
-    cart.forEach((item) => {
-      if (productId === item.productId){
-        matchingItem = item;
-      }
-    });
-
-    if (matchingItem) {
-      matchingItem.quantity += 1;
-    } else {
-       cart.push({
-      productId: productId ,
-      quantity: 1      
-    });
-    }
-
-    //calculating the total quantity of the page
-    let cartQuantity = 0;
-
-    cart.forEach((item) => {
-      cartQuantity += item.quantity;
-    });
-
-    document.querySelector('.js-cart-quantity')
-    .innerHTML = cartQuantity;
+  addToCart(productId);
+  updateCartQuantity();
+       
   });
 });   
