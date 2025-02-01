@@ -11,6 +11,7 @@ const today = dayjs();
 const deliveryDate = today.add(7, 'days');
 
 
+function renderOrderSummary() {
 
 let cartSummaryHTML = '';
 
@@ -150,8 +151,11 @@ function deliveryOptionsHTML(matchingProduct, cartItem){
       element.addEventListener('click', () => {
         const {productId, deliveryOptionId} = element.dataset;
         updateDeliveryOption(productId, deliveryOptionId);
+        renderOrderSummary();
       })
     })
 
-   
+}
+
+renderOrderSummary();
   
