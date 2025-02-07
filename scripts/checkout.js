@@ -5,10 +5,26 @@ import { renderPaymentSummary } from './checkout/paymentSummary.js';
 import { loadProducts, loadProductsFetch } from '../data/products.js';
 import { loadCart } from '../data/cart.js';
 
+  async function loadPage() {
+      
 
+  await loadProductsFetch();
+
+  await new Promise((resolve) => {
+      loadCart(() => {});  
+      resolve();
+    });
+
+    renderOrderSummary();
+    renderPaymentSummary();
+
+  }
+    loadPage();
+
+/*
 Promise.all([
   loadProductsFetch(),
-  
+   
   new Promise((resolve) => {
     loadCart(() => {});  
     resolve();
@@ -20,6 +36,7 @@ Promise.all([
   renderPaymentSummary();
 });
 
+*/
 
 /*
 // an example of using Promises which help us write asychronous code better and avoid nesting issues
